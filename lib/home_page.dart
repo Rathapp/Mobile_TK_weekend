@@ -1,16 +1,145 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  // const HomePage({super.key});
   final url ="https://oceanview4luz.wordpress.com/wp-content/uploads/2013/01/sunset-for-front-room-i.jpg";
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      appBar: buildAppBar(),
+      // drawer: buildDrawer(),
+      endDrawer: Drawer(),
       body: buildBody(),
+      floatingActionButton: buildFloatingActionButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
+      bottomNavigationBar: buildBottomNavigationBar(),
+
+    );
+
+
+  }
+
+  BottomNavigationBar buildBottomNavigationBar() {
+    return BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.pink,
+        fixedColor: Colors.white,
+        unselectedItemColor: Colors.white,
+        iconSize: 30,
+        items: [
+      BottomNavigationBarItem(icon: Icon(Icons.home),label: "Home"),
+      BottomNavigationBarItem(icon: Icon(Icons.search),label: "Search"),
+      BottomNavigationBarItem(icon: Icon(Icons.person),label: "Profile"),
+          BottomNavigationBarItem(icon: Icon(Icons.home),label: "Home"),
+    ]);
+  }
+
+  BottomAppBar buildBottomAppBar() {
+    return BottomAppBar(
+      shape: CircularNotchedRectangle(),
+      color: Colors.pink,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(onPressed: (){}, icon: Icon(Icons.home)),
+          IconButton(onPressed: (){}, icon: Icon(Icons.card_travel)),
+          SizedBox( width: 30,),
+          IconButton(onPressed: (){}, icon: Icon(Icons.search,color: Colors.white,size: 30,)),
+          IconButton(onPressed: (){}, icon: Icon(Icons.person)),
+
+        ],
+      ),
+    );
+  }
+
+  FloatingActionButton buildFloatingActionButton() {
+    return FloatingActionButton(
+      backgroundColor: Colors.pink,
+      onPressed: (){},
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50) ,),
+      child: Icon(Icons.add,color: Colors.white,size:30 ,),
+  );
+  }
+
+  Drawer buildDrawer() {
+    return Drawer(
+      child: SafeArea(
+          child: Column(
+            children: [
+              DrawerHeader(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                      color: Colors.grey,
+                        borderRadius: BorderRadius.circular(80),
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/dd.jpeg"),
+                          fit: BoxFit.cover,
+                        )
+                      ),
+
+                    ),
+                    SizedBox(width: 10,),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                      Text("Hello, Ratha",style: TextStyle(fontSize: 20,fontWeight: FontWeight(600)),),
+                      Text("Edit Profile")
+                    ],)
+
+
+        ],
+                )
+            ),
+              ListTile(
+                leading: Icon(Icons.home),
+              title: Text("Home"),
+              onTap: (){},
+              trailing: Icon(Icons.chevron_right),),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text("Home"),
+                onTap: (){},),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text("Home"),
+                onTap: (){},),
+              Divider(),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text("Home"),
+                onTap: (){},),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text("Home"),
+                onTap: (){},),
+              
+          ])
+      )
+    );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      // leading: IconButton(onPressed: (){
+      //   _scaffoldKey.currentState?.openDrawer();
+      // }, icon: Icon(Icons.chevron_left)),
+      title: Text("Home Page",style: TextStyle(fontSize: 25,color: Colors.white),),
+      backgroundColor: Colors.pink,
+      centerTitle: true,
+      actions: [Icon(Icons.settings,),SizedBox(width: 20,),Icon(Icons.person),SizedBox(width: 10,)],
     );
   }
   Widget buildBody() {
-    return SafeArea(
+    return SingleChildScrollView(
       child: Center(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -31,7 +160,7 @@ class HomePage extends StatelessWidget {
               Text("Welcom to Flutter dfgdf dfgdfhfg edgdfgdfhgf dsfdgdfh", style: TextStyle(
                   fontSize: 28, color: Colors.red, fontWeight: FontWeight(400))
               ),
-              Spacer(),
+
               Stack(
                 clipBehavior: Clip.none,
                 children: [
@@ -60,11 +189,19 @@ class HomePage extends StatelessWidget {
 
                       ),
                       child: Center(child: Text("5", style: TextStyle(fontSize: 20, color: Colors.white,fontWeight: FontWeight(600)),))
-                  ))
+                  )),
+
                     ]
               ),
               SizedBox(height: 20,),
-
+              CircleAvatar(
+                radius: 30,
+                backgroundColor: Colors.grey,
+                backgroundImage: AssetImage("assets/images/dd.jpeg"),
+              
+                child: Text("PR",style: TextStyle(fontSize: 30,color: Colors.red),),
+              ),
+              SizedBox(height: 20,),
             ]
         ),
       ),
