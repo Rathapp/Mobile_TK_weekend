@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       appBar: buildAppBar(),
-      // drawer: buildDrawer(),
+      drawer: buildDrawer(),
       endDrawer: Drawer(),
       body: buildBody(),
       floatingActionButton: buildFloatingActionButton(),
@@ -129,9 +129,10 @@ class HomePage extends StatelessWidget {
 
   AppBar buildAppBar() {
     return AppBar(
-      // leading: IconButton(onPressed: (){
-      //   _scaffoldKey.currentState?.openDrawer();
-      // }, icon: Icon(Icons.chevron_left)),
+      leading: IconButton(onPressed: (){
+        _scaffoldKey.currentState?.openDrawer();
+
+      }, icon: Icon(Icons.chevron_left)),
       title: Text("Home Page",style: TextStyle(fontSize: 25,color: Colors.white),),
       backgroundColor: Colors.pink,
       centerTitle: true,
@@ -194,14 +195,7 @@ class HomePage extends StatelessWidget {
                     ]
               ),
               SizedBox(height: 20,),
-              CircleAvatar(
-                radius: 30,
-                backgroundColor: Colors.grey,
-                backgroundImage: AssetImage("assets/images/dd.jpeg"),
-              
-                child: Text("PR",style: TextStyle(fontSize: 30,color: Colors.red),),
-              ),
-              SizedBox(height: 20,),
+
             ]
         ),
       ),
