@@ -8,8 +8,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: buildAppBar(),
-      drawer: buildDrawer(),
+      appBar: buildAppBar(context),
+      // drawer: buildDrawer(),
       endDrawer: Drawer(),
       body: buildBody(),
       floatingActionButton: buildFloatingActionButton(),
@@ -127,10 +127,11 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  AppBar buildAppBar() {
+  AppBar buildAppBar(BuildContext context) {
     return AppBar(
       leading: IconButton(onPressed: (){
-        _scaffoldKey.currentState?.openDrawer();
+        // _scaffoldKey.currentState?.openDrawer();
+        Navigator.pop(context);
 
       }, icon: Icon(Icons.chevron_left)),
       title: Text("Home Page",style: TextStyle(fontSize: 25,color: Colors.white),),
@@ -195,7 +196,6 @@ class HomePage extends StatelessWidget {
                     ]
               ),
               SizedBox(height: 20,),
-
             ]
         ),
       ),
