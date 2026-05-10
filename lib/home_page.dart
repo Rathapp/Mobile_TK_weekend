@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluuter_weekend/Log_in.dart';
 
 import 'Screen/about_screen.dart';
 import 'Screen/home_screen.dart';
@@ -23,15 +24,14 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: buildAppBar(context),
+      // appBar: buildAppBar(context),
       // drawer: buildDrawer(),
       endDrawer: Drawer(),
       body: _screen[_currentIndex],
       // buildBody(),
       floatingActionButton: buildFloatingActionButton(),
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
-      bottomNavigationBar: buildBottomNavigationBar(),
-      // buildBottomAppBar(),
+      bottomNavigationBar: buildBottomAppBar(),
       // buildBottomNavigationBar(),
 
     );
@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
 
   BottomAppBar buildBottomAppBar() {
     return BottomAppBar(
-      height: 55,
+      height: 80,
       shape: CircularNotchedRectangle(),
       color: Colors.white,
       elevation: 10,
@@ -73,14 +73,51 @@ class _HomePageState extends State<HomePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.home)),
-          IconButton(onPressed: (){}, icon: Icon(Icons.card_travel)),
-          SizedBox( width: 30,),
-          IconButton(onPressed: (){}, icon: Icon(Icons.search,color: Colors.white,size: 30,)),
-          IconButton(onPressed: (){}, icon: Icon(Icons.person)),
-          CircleAvatar(backgroundImage: AssetImage("assets/images/dd.jpeg"),)
+          buildBottonItem(icon: Icons.home,index: 0,label: "Home",onTap: (){
+            setState(() {
+              _currentIndex = 0;
+            });
+          }),
+          buildBottonItem(icon: Icons.search,index: 1,label: "Search",onTap: (){
+            setState(() {
+              _currentIndex = 1;
+            });
+          }),
+          buildBottonItem(icon: Icons.settings,index: 2,label: "Setting",onTap: (){
+            setState(() {
+              _currentIndex = 2;
+            });
+          }),
+          buildBottonItem(icon: Icons.person,index: 3,label: "Profile",onTap: (){
+            setState(() {
+              _currentIndex = 3;
+            });
+          }),
+
+          InkWell(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> LogIn()));
+            },
+            child: CircleAvatar(
+              radius: 15,
+              backgroundImage: AssetImage("assets/images/dd.jpeg"),),
+          )
 
         ],
+      ),
+    );
+  }
+
+  InkWell buildBottonItem({required IconData icon, required int index, String? label,Function? onTap}) {
+    return InkWell(
+
+      onTap: onTap as void Function()?,
+      borderRadius: BorderRadius.circular(10),
+      child: Padding(
+        padding: const EdgeInsets.all(3.0),
+        child: Column(children: [Icon(icon,color: index == _currentIndex? Colors.blue: Colors.black,),
+          SizedBox(height: 3,),
+            Text(label!,style: TextStyle(color: index == _currentIndex? Colors.blue: Colors.black),)]),
       ),
     );
   }
