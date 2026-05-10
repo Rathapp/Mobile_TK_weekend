@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+import 'Screen/about_screen.dart';
+import 'Screen/home_screen.dart';
+import 'Screen/profile_screen.dart';
+import 'Screen/search_screen.dart';
+
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   // const HomePage({super.key});
   final url ="https://oceanview4luz.wordpress.com/wp-content/uploads/2013/01/sunset-for-front-room-i.jpg";
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final List<Widget> _screen = [HomeScreen(),SearchScreen(),AboutScreen(),ProfileScreen()];
+  int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,10 +26,13 @@ class HomePage extends StatelessWidget {
       appBar: buildAppBar(context),
       // drawer: buildDrawer(),
       endDrawer: Drawer(),
-      body: buildBody(),
+      body: _screen[_currentIndex],
+      // buildBody(),
       floatingActionButton: buildFloatingActionButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
       bottomNavigationBar: buildBottomNavigationBar(),
+      // buildBottomAppBar(),
+      // buildBottomNavigationBar(),
 
     );
 
@@ -23,23 +41,35 @@ class HomePage extends StatelessWidget {
 
   BottomNavigationBar buildBottomNavigationBar() {
     return BottomNavigationBar(
+      onTap: (index){
+        setState(() {
+          _currentIndex= index;
+        });
+
+      },
+      currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.pink,
-        fixedColor: Colors.white,
-        unselectedItemColor: Colors.white,
+        backgroundColor: Colors.white,
+        // fixedColor: Colors.white,
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.black,
         iconSize: 30,
         items: [
       BottomNavigationBarItem(icon: Icon(Icons.home),label: "Home"),
       BottomNavigationBarItem(icon: Icon(Icons.search),label: "Search"),
+          BottomNavigationBarItem(icon: Icon(Icons.abc_outlined),label: "About"),
       BottomNavigationBarItem(icon: Icon(Icons.person),label: "Profile"),
-          BottomNavigationBarItem(icon: Icon(Icons.home),label: "Home"),
+
     ]);
   }
 
   BottomAppBar buildBottomAppBar() {
     return BottomAppBar(
+      height: 55,
       shape: CircularNotchedRectangle(),
-      color: Colors.pink,
+      color: Colors.white,
+      elevation: 10,
+      
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -48,6 +78,7 @@ class HomePage extends StatelessWidget {
           SizedBox( width: 30,),
           IconButton(onPressed: (){}, icon: Icon(Icons.search,color: Colors.white,size: 30,)),
           IconButton(onPressed: (){}, icon: Icon(Icons.person)),
+          CircleAvatar(backgroundImage: AssetImage("assets/images/dd.jpeg"),)
 
         ],
       ),
@@ -121,7 +152,7 @@ class HomePage extends StatelessWidget {
                 leading: Icon(Icons.home),
                 title: Text("Home"),
                 onTap: (){},),
-              
+
           ])
       )
     );
@@ -140,6 +171,7 @@ class HomePage extends StatelessWidget {
       actions: [Icon(Icons.settings,),SizedBox(width: 20,),Icon(Icons.person),SizedBox(width: 10,)],
     );
   }
+
   Widget buildBody() {
     return SingleChildScrollView(
       child: Center(

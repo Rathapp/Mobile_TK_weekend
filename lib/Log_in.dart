@@ -3,10 +3,19 @@ import 'package:flutter/material.dart';
 
 import 'home_page.dart';
 
-class LogIn extends StatelessWidget {
+class LogIn extends StatefulWidget {
   LogIn({super.key});
+
+  @override
+  State<LogIn> createState() => _LogInState();
+}
+
+class _LogInState extends State<LogIn> {
  final TextEditingController _emailController = TextEditingController();
+
  final TextEditingController _passwordController = TextEditingController();
+
+ bool is_Show = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +60,7 @@ class LogIn extends StatelessWidget {
                   SizedBox(height: 20,),
                   TextField(
                     controller: _passwordController,
-                      obscureText: true,
+                      obscureText: is_Show,
                       style: TextStyle(fontSize: 20,color: Colors.blue),
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
@@ -67,7 +76,14 @@ class LogIn extends StatelessWidget {
                           // labelText: "Email",
                           prefixIcon: Icon(Icons.key,color: Colors.blue),
                           // icon: Icon(Icons.email),
-                          suffixIcon: Icon(Icons.visibility,color: Colors.blue),
+                          suffixIcon: InkWell(
+                              onTap: (){
+                                setState(() {
+                                  is_Show = !is_Show;
+                                });
+                              },
+                              child: is_Show? Icon(Icons.visibility,color: Colors.blue):Icon(Icons.visibility_off,color: Colors.blue,)
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(color: Colors.blue,width: 2),
@@ -79,7 +95,7 @@ class LogIn extends StatelessWidget {
                   ),
                   SizedBox(height: 20,),
 
-                  CircularProgressIndicator(),
+                  // CircularProgressIndicator(),
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: 50,
